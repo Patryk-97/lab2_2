@@ -34,7 +34,8 @@ class SimilarityFinderStateTests {
 
     @Test
     void calculateJaccardIndexForFirstSetEmptySecondNotEmptyTest() {
-
+        double jaccardIndex = similarityFinder.calculateJackardSimilarity(emptySet, multipleElementSet);
+        assertThat(jaccardIndex, is(equalTo(DISJOINT_SETS)));
     }
 
     @Test
