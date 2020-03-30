@@ -24,7 +24,7 @@ class SimilarityFinderBehaviourTests {
 
     @Test
     void checkIfFirstSetIsNotNullSecondNull() {
-
+        assertThrows(NullPointerException.class, () -> similarityFinder.calculateJackardSimilarity(notNullSet, null));
     }
 
     @Test
