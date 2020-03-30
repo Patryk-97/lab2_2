@@ -23,27 +23,27 @@ class SimilarityFinderBehaviourTests {
     }
 
     @Test
-    void checkIfFirstSetIsNullSecondNotNull() {
+    void checkIfFirstSetIsNullSecondNotNullTest() {
         assertThrows(NullPointerException.class, () -> similarityFinder.calculateJackardSimilarity(null, notNullSet));
     }
 
     @Test
-    void checkIfFirstSetIsNotNullSecondNull() {
+    void checkIfFirstSetIsNotNullSecondNullTest() {
         assertThrows(NullPointerException.class, () -> similarityFinder.calculateJackardSimilarity(notNullSet, null));
     }
 
     @Test
-    void checkIfBothSetsAreNull() {
+    void checkIfBothSetsAreNullTest() {
         assertThrows(NullPointerException.class, () -> similarityFinder.calculateJackardSimilarity(null, null));
     }
 
     @Test
-    void checkIfBothSetsAreNotNull() {
+    void checkIfBothSetsAreNotNullTest() {
         assertDoesNotThrow(() -> similarityFinder.calculateJackardSimilarity(notNullSet, notNullSet));
     }
 
     @Test
-    void verifyHowManyTimesSearchMethodIsCalledForNotNullSets() {
+    void verifyHowManyTimesSearchMethodIsCalledForNotNullSetsTest() {
         similarityFinder.calculateJackardSimilarity(notNullSet, notNullSet);
         assertThat(sequenceSearcherMock.getSearchMethodCallNumber(), is(equalTo(SEARCH_METHOD_CALL_NO)));
     }
