@@ -45,8 +45,9 @@ class SimilarityFinderStateTests {
     }
 
     @Test
-    void calculateJaccardIndexForIdenticalSetsTest() {
-
+    void calculateJaccardIndexForNotEmptyIdenticalSetsTest() {
+        double jaccardIndex = similarityFinder.calculateJackardSimilarity(multipleElementSet, multipleElementSet);
+        assertThat(jaccardIndex, is(equalTo(IDENTICAL_SETS)));
     }
 
     @Test
