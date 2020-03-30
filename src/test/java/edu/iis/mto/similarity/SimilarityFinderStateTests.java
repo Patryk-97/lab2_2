@@ -58,6 +58,7 @@ class SimilarityFinderStateTests {
 
     @Test
     void calculateJaccardIndexForSignificantlyDifferentSetsTest() {
-
+        double jaccardIndex = similarityFinder.calculateJackardSimilarity(multipleElementSet, significantlyDifferentMultipleElementSet);
+        assertThat(jaccardIndex, is(equalTo(SIGNIFICANTLY_DIFFERENT_SETS)));
     }
 }
