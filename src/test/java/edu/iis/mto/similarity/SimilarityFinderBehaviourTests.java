@@ -29,7 +29,7 @@ class SimilarityFinderBehaviourTests {
 
     @Test
     void checkIfBothSetsAreNull() {
-
+        assertThrows(NullPointerException.class, () -> similarityFinder.calculateJackardSimilarity(null, null));
     }
 
     @Test
