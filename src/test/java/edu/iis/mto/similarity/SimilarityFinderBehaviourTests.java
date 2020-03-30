@@ -1,5 +1,8 @@
 package edu.iis.mto.similarity;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -11,6 +14,7 @@ class SimilarityFinderBehaviourTests {
     private SimilarityFinder similarityFinder;
     private SequenceSearcherMock sequenceSearcherMock;
     private static int[] notNullSet = {1, 2, 3};
+    private static final int SEARCH_METHOD_CALL_NO = notNullSet.length;
 
     @BeforeEach
     void setup() {
@@ -39,7 +43,8 @@ class SimilarityFinderBehaviourTests {
     }
 
     @Test
-    void verifyHowManyTimesSearchMethodIsCalled() {
-
+    void verifyHowManyTimesSearchMethodIsCalledForNotNullSets() {
+        similarityFinder.calculateJackardSimilarity(notNullSet, notNullSet);
+        assertThat(sequenceSearcherMock.getSearchMethodCallNumber(), is(equalTo(SEARCH_METHOD_CALL_NO)));
     }
 }
