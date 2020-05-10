@@ -3,11 +3,13 @@ package edu.iis.mto.similarity;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class SimilarityFinderStateTests {
+class SimilarityFinderTests {
 
     private SimilarityFinder similarityFinder;
     private SequenceSearcherMock sequenceSearcherMock;
@@ -19,6 +21,8 @@ class SimilarityFinderStateTests {
     private static final double DISJOINT_SETS = 0.0d;
     private static final double SIGNIFICANTLY_DIFFERENT_SETS = 0.2d;
     private static final double SLIGHTLY_DIFFERENT_SETS = 0.5d;
+    private static int[] notNullSet = {1, 2, 3};
+    private static final int SEARCH_METHOD_CALL_NO = notNullSet.length;
 
     @BeforeEach
     void setup() {
@@ -66,5 +70,31 @@ class SimilarityFinderStateTests {
         sequenceSearcherMock.setSecondSeq(significantlyDifferentMultipleElementSet);
         double jaccardIndex = similarityFinder.calculateJackardSimilarity(multipleElementSet, significantlyDifferentMultipleElementSet);
         assertThat(jaccardIndex, is(equalTo(SIGNIFICANTLY_DIFFERENT_SETS)));
+    }
+
+    @Test
+    void checkIfFirstSetIsNullSecondNotNullTest() {
+        assertThrows(NullPointerException.class, () -> similarityFinder.calculateJackardSimilarity(null, notNullSet));
+    }
+
+    @Test
+    void checkIfFirstSetIsNotNullSecondNullTest() {
+        assertThrows(NullPointerException.class, () -> similarityFinder.calculateJackardSimilarity(notNullSet, null));
+    }
+
+    @Test
+    void checkIfBothSetsAreNullTest() {
+        assertThrows(NullPointerException.class, () -> similarityFinder.calculateJackardSimilarity(null, null));
+    }
+
+    @Test
+    void checkIfBothSetsAreNotNullTest() {
+        assertDoesNotThrow(() -> similarityFinder.calculateJackardSimilarity(notNullSet, notNullSet));
+    }
+
+    @Test
+    void verifyHowManyTimesSearchMethodIsCalledForNotNullSetsTest() {
+        similarityFinder.calculateJackardSimilarity(notNullSet, notNullSet);
+        assertThat(sequenceSearcherMock.getSearchMethodCallNumber(), is(equalTo(SEARCH_METHOD_CALL_NO)));
     }
 }
