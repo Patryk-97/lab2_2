@@ -28,36 +28,42 @@ class SimilarityFinderStateTests {
 
     @Test
     void calculateJaccardIndexForEmptySetsTest() {
+        sequenceSearcherMock.setSecondSeq(emptySet);
         double jaccardIndex = similarityFinder.calculateJackardSimilarity(emptySet, emptySet);
         assertThat(jaccardIndex, is(equalTo(IDENTICAL_SETS)));
     }
 
     @Test
     void calculateJaccardIndexForFirstSetEmptySecondNotEmptyTest() {
+        sequenceSearcherMock.setSecondSeq(multipleElementSet);
         double jaccardIndex = similarityFinder.calculateJackardSimilarity(emptySet, multipleElementSet);
         assertThat(jaccardIndex, is(equalTo(DISJOINT_SETS)));
     }
 
     @Test
     void calculateJaccardIndexForFirstSetNotEmptySecondEmptyTest() {
+        sequenceSearcherMock.setSecondSeq(emptySet);
         double jaccardIndex = similarityFinder.calculateJackardSimilarity(multipleElementSet, emptySet);
         assertThat(jaccardIndex, is(equalTo(DISJOINT_SETS)));
     }
 
     @Test
     void calculateJaccardIndexForNotEmptyIdenticalSetsTest() {
+        sequenceSearcherMock.setSecondSeq(multipleElementSet);
         double jaccardIndex = similarityFinder.calculateJackardSimilarity(multipleElementSet, multipleElementSet);
         assertThat(jaccardIndex, is(equalTo(IDENTICAL_SETS)));
     }
 
     @Test
     void calculateJaccardIndexForSlightlyDifferentSetsTest() {
+        sequenceSearcherMock.setSecondSeq(slightlyDifferentMultipleElementSet);
         double jaccardIndex = similarityFinder.calculateJackardSimilarity(multipleElementSet, slightlyDifferentMultipleElementSet);
         assertThat(jaccardIndex, is(equalTo(SLIGHTLY_DIFFERENT_SETS)));
     }
 
     @Test
     void calculateJaccardIndexForSignificantlyDifferentSetsTest() {
+        sequenceSearcherMock.setSecondSeq(significantlyDifferentMultipleElementSet);
         double jaccardIndex = similarityFinder.calculateJackardSimilarity(multipleElementSet, significantlyDifferentMultipleElementSet);
         assertThat(jaccardIndex, is(equalTo(SIGNIFICANTLY_DIFFERENT_SETS)));
     }

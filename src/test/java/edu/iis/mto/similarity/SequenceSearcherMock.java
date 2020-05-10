@@ -16,6 +16,7 @@ public class SequenceSearcherMock implements SequenceSearcher {
     }
 
     public void setSecondSeq(int[] secondSeq) {
+        this.secondSeq.clear();
         int i = 0;
         for (int elem : secondSeq) {
             this.secondSeq.put(elem, i++);
